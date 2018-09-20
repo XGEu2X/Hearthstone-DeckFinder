@@ -162,7 +162,7 @@ public:
 				std::cout << Cards[c1]["name"].GetString() << " " << DECK[c1] << std::endl;
 			}
 		}
-		std::cout << "Code: " << this->get_deck_code(Cards, heroDbfId) << std::endl;
+		std::cout << "https://deck.codes/" << this->get_deck_code(Cards, heroDbfId) << std::endl;
 	}
 	inline bool has_error() { return error; }
 	inline std::string get_error_message() { return error_message; }
