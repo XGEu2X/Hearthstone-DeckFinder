@@ -3,3 +3,11 @@
 ################################################################################
 
 /CMakeSettings.json
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
+/.vs/Hearthstone-DeckFinder/v15/Browse.VC.opendb
+/.vs/Hearthstone-DeckFinder/v15/Browse.VC.db
+/.vs/Hearthstone-DeckFinder/v15/.suo
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/d733dec5c20b32c1/DIFFERENTIALEVOLUTION.ipch
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/c563cf29dc7947ac/PREPARECARDS.ipch
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/26665b54d276169a/MATCHCOLLECTOR.ipch
