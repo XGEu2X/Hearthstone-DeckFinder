@@ -6,8 +6,15 @@
 
 #include "Card.hpp"
 #include "Probability.hpp"
-//#include "GeneralWindows.hpp"
-#include "GeneralLinux.hpp"
+#ifdef __linux__ 
+    #include "GeneralLinux.hpp"
+#elif _WIN32
+    #include "GeneralWindows.hpp"
+#else
+
+#endif
+
+
 
 //says if an element 'e' is in a list
 template<class Element>
