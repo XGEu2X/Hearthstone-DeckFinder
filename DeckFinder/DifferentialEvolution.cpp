@@ -185,9 +185,6 @@ int main(int argc, char *argv[]) {
 		//How is it going?
 		if (c1 % 100 == 0) {
 			std::cout << "Generación " << c1 << ": " << maxValue << ", sin mejora desde hace " << iterationsWithoutImprovment << std::endl;
-			if (c1 % 1000 == 900) {
-				Population[NPop - 1].print(Cards, ClassInfo["heroDbfId"].GetInt());
-			}
 		}
 
 	}

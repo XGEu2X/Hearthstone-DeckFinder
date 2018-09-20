@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	//reads exponent to lp norm
 	if (argc > 3)
 	{
-		std::istringstream ss_p(argv[2]);
+		std::istringstream ss_p(argv[3]);
 		if (!(ss_p >> p))
 		{
 			std::cout << "Error with arguments" << std::endl;
