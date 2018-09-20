@@ -1,6 +1,6 @@
-# Deck Finder
+# Hearthstone-DeckFinder
 
-Deck Finder is a software to find good decks to play Hearthstone or rate a given one.
+Hearthstone-DeckFinder is a software to find good decks to play Hearthstone or rate a given one.
 
 ## Getting Started
 
