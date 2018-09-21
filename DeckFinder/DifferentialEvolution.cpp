@@ -121,7 +121,6 @@ int main(int argc, char *argv[]) {
 
 	//declares the value to limit iterations without improvment
 	double maxValue = 0;
-    float epsilon = 0.00000001;
 	int iterationsWithoutImprovment = 0;
 
 	//iterates generations    
@@ -171,9 +170,9 @@ int main(int argc, char *argv[]) {
 		}
 
 		//checks if there was an improvment
-		if ( maxValue+epsilon < Population[NRPop - 1].get_value() ) 
+		if ( maxValue < Population[NPop - 1].get_value() ) 
 		{
-			maxValue = Population[NRPop - 1].get_value();
+			maxValue = Population[NPop - 1].get_value();
 			iterationsWithoutImprovment = 0;
 		}
 		else 
