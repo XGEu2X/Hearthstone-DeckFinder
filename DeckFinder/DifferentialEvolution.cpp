@@ -184,13 +184,13 @@ int main(int argc, char *argv[]) {
 
 		//How is it going?
 		if (c1 % 100 == 0) {
-			std::cout << "Generación " << c1 << ": " << maxValue << ", sin mejora desde hace " << iterationsWithoutImprovment << std::endl;
+			std::cout << "Generation " << c1 + 1 << ", value = " << maxValue << std::endl;
 		}
 
 	}
 
 	//show results
-	std::cout << "P = " << p << ", " << TUPLE_NUMBER << "-tuples" << std::endl;
+	std::cout << "P = " << p << ", " << TUPLE_NUMBER << "-tuples. Found in generation " << c1 - iterationsWithoutImprovment + 1 << "." << std::endl;
 	//show the best deck
 	Population[NPop - 1].print(Cards,ClassInfo["heroDbfId"].GetInt());
 	//show his rate

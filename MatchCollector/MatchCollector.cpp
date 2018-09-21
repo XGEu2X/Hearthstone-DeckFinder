@@ -6,13 +6,14 @@ int main(int argc, char *argv[])
 	//default parameters
 	// minimum ratio of matches to be considered (for cards) 
 	double MIN_MATCH_VALID_RATIO = .02;
+	int MAX_NUM_CARDS = 65;
 	std::string STATS_RESOURCE("HSReplay");
 
 	//reads parameters
 	//checks the number of parameters
 	if (argc<3 || argc>5) 
 	{
-		std::cout << "format: ./MatchCollector TUPLE_NUMBER CARD_CLASS MIN_MATCH_VALID_RATIO STATS_RESOURCE" << std::endl;
+		std::cout << "format: ./MatchCollector TUPLE_NUMBER CARD_CLASS MIN_MATCH_VALID_RATIO STATS_RESOURCE or format: ./MatchCollector 1 CARD_CLASS MAX_NUM_CARDS STATS_RESOURCE" << std::endl;
 		return 0;
 	}
 	//reads TUPLE NUMBER
@@ -35,6 +36,10 @@ int main(int argc, char *argv[])
 		{
 			std::cout << "Error with arguments" << std::endl;
 			return 0;
+			if (TUPLE_NUMBER == 1)
+			{
+				MAX_NUM_CARDS = int(MIN_MATCH_VALID_RATIO);
+			}
 		}
 	}
 	//reads the source of stats
@@ -87,8 +92,7 @@ int main(int argc, char *argv[])
 	//if it is counting matches of single cards, removes cards which not have enough matches and info of this class
 	if (TUPLE_NUMBER == 1) 
 	{
-		remove_entries_without_enough_matches(	tuplesFile,
-												numberOfAddedMatches*MIN_MATCH_VALID_RATIO	);
+		remove_extra_cards(	tuplesFile, MIN_MATCH_VALID_RATIO	);
 		
 		rapidjson::Document GI = read_json("data/" + CARD_CLASS + "_Info.json");
 		GI["playedMatches"].SetInt(GI["playedMatches"].GetInt() + numberOfAddedMatches);
