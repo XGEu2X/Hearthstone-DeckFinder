@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 	//reads parameters
 	if (argc<3 || argc>9) 
 	{
-		std::cout << "format: DifferentialEvolution.exe TUPLE_NUMBER CARD_CLASS GENERATIONS LIMIT_OF_ITERATIONS_WITHOUT_IMPROVMENT AMOUNT_OF_POPULATION PROBABILITY_OF_MUTATION RANDOM_ELEMENTS_IN_POPULATION_RATIO EXPONENT_TO_LP_NORM" << std::endl;
+		std::cout << "format: DifferentialEvolution.exe TUPLE_NUMBER CARD_CLASS GENERATIONS LIMIT_OF_ITERATIONS_WITHOUT_IMPROVMENT AMOUNT_OF_POPULATION PROBABILITY_OF_MUTATION RANDOM_ELEMENTS_IN_POPULATION EXPONENT_TO_LP_NORM" << std::endl;
 		return 0;
 	}
 	//reads tuple number
@@ -62,17 +62,15 @@ int main(int argc, char *argv[]) {
 			return 0;
 		}
 	}
-	//reads the ratio of random elements in population
+	//reads the number of random elements in population
 	if (argc>7)
 	{
-		double PRAPop;
-		std::istringstream ss_PRAPop(argv[7]);
-		if (!(ss_PRAPop >> PRAPop)) 
+		std::istringstream ss_NRPop(argv[7]);
+		if (!(ss_NRPop >> NRPop)) 
 		{
 			std::cout << "Error with arguments" << std::endl;
 			return 0;
 		}
-		NRPop = NPop * PRAPop;
 		if (NRPop<0)NRPop = 0;
 		if(NRPop>NPop)NRPop = NPop;
 	}
@@ -123,7 +121,6 @@ int main(int argc, char *argv[]) {
 
 	//declares the value to limit iterations without improvment
 	double maxValue = 0;
-    float epsilon = 0.00000001;
 	int iterationsWithoutImprovment = 0;
 
 	//iterates generations    
@@ -173,9 +170,9 @@ int main(int argc, char *argv[]) {
 		}
 
 		//checks if there was an improvment
-		if ( maxValue+epsilon < Population[NRPop - 1].get_value() ) 
+		if ( maxValue < Population[NPop - 1].get_value() ) 
 		{
-			maxValue = Population[NRPop - 1].get_value();
+			maxValue = Population[NPop - 1].get_value();
 			iterationsWithoutImprovment = 0;
 		}
 		else 
@@ -184,9 +181,19 @@ int main(int argc, char *argv[]) {
 			if (iterationsWithoutImprovment == LimOfIterationsWithoutImprove)break;
 		}	
 
+		//How is it going?
+		if (c1 % 100 == 99) {
+			std::cout << "Generation " << c1 + 1;
+			if (iterationsWithoutImprovment < 100)
+				std::cout << ", value = " << maxValue << std::endl;
+			else
+				std::cout << std::endl;
+		}
+
 	}
 
 	//show results
+	std::cout << "P = " << p << ", " << TUPLE_NUMBER << "-tuples. Found in generation " << c1 - iterationsWithoutImprovment + 1 << std::endl;
 	//show the best deck
 	Population[NPop - 1].print(Cards,ClassInfo["heroDbfId"].GetInt());
 	//show his rate

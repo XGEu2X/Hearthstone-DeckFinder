@@ -53,6 +53,19 @@ void remove_entries_without_enough_matches(TuplesFile& Tuples, int minMatchNumbe
 		if (Tuples[c1]["playedMatches"].GetInt() < minMatchNumber)
 			Tuples.Erase(Tuples.Begin() + c1--);
 }
+
+//remove until N cards are left
+template <class TuplesFile>
+void remove_extra_cards(TuplesFile& Tuples, int maxNumCards)
+{
+	std::vector<int> values;
+	for (int c1 = 0; c1 < Tuples.Size(); ++c1)
+		values.push_back(Tuples[c1]["playedMatches"].GetInt());
+	std::sort(values.begin(), values.end());
+	if(0 < maxNumCards && maxNumCards <= Tuples.Size())
+		remove_entries_without_enough_matches(Tuples, values[Tuples.Size() - maxNumCards]);
+}
+
 //calculate winRatio parameter in database
 template <class TuplesFile>
 void calculate_win_ratio(TuplesFile& Tuples) 

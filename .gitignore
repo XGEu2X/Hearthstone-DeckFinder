@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CMakeSettings.json
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
+/.vs/Hearthstone-DeckFinder/v15/Browse.VC.opendb
+/.vs/Hearthstone-DeckFinder/v15/Browse.VC.db
+/.vs/Hearthstone-DeckFinder/v15/.suo
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/d733dec5c20b32c1/DIFFERENTIALEVOLUTION.ipch
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/c563cf29dc7947ac/PREPARECARDS.ipch
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/26665b54d276169a/MATCHCOLLECTOR.ipch
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/442cd5d2c9a50a5b/DECKRATER.ipch
+/.vs/VSWorkspaceState.json
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/58a16b34c4134768/RECURSIVEFILLER.ipch
+/.vs/Hearthstone-DeckFinder/v15/ipch/AutoPCH/e9d09de1cc5cdf41/COLLECTOBOT.ipch
