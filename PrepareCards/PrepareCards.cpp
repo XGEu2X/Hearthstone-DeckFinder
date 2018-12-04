@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
 {
 	//reads parameters
 	//checks the number of parameters
-	if (argc != 3)
+	if (argc < 3 || argc > 4)
 	{
-		std::cout << "format: ./PrepareCards TUPLE_NUMBER CARD_CLASS" << std::endl;
+		std::cout << "format: ./PrepareCards TUPLE_NUMBER CARD_CLASS USE_MY_CARDS (1 if yes, 0 if not)" << std::endl;
 		return 0;
 	}
 	//reads TUPLE_NUMBER
@@ -67,7 +67,18 @@ int main(int argc, char *argv[])
 	}
 	//reads CARD_CLASS
 	std::string CARD_CLASS(argv[2]);
-
+    //reads if you will use only your cards
+    bool CARDS_FILE_FLAG = 0;
+    if(argc > 3)
+    {
+        std::istringstream s_CARDS_FILE_FLAG(argv[3]);
+        if(!(s_CARDS_FILE_FLAG >> CARDS_FILE_FLAG))
+        {
+            std::cout << "Error with arguments" << std::endl;
+            return 0;
+        }
+    }
+    
 	//It makes the list of cards of this class
 	if (TUPLE_NUMBER == 1) 
 	{
@@ -144,6 +155,26 @@ int main(int argc, char *argv[])
 			cards.PushBack(card, cards.GetAllocator());
 		}
 
+		if(CARDS_FILE_FLAG)
+        {
+            std::cout << "Im in";
+            nlohmann::json myCardsFile = nlohmann_read_json("data/HSCT.json");
+            std::vector<std::string> Names;
+            //lists neutral cards
+            std::string neutral(upper_to_lowercase(NEUTRAL));
+            for(nlohmann::json cardsType:myCardsFile[neutral]["cards"])
+                for(nlohmann::json card:cardsType)
+                    Names.push_back(card["name"]);
+            
+            std::string cardClass(upper_to_lowercase(CARD_CLASS));
+            //list class cards
+            for(nlohmann::json cardsType:myCardsFile[cardClass]["cards"])
+                for(nlohmann::json card:cardsType)
+                    Names.push_back(card["name"]);
+        
+            keep_cards_by_name(cards,Names);
+        }
+		
 		//writes the file with cards of CARD CLASS
 		write_json(cards, "data/1_" + CARD_CLASS + ".json");
 

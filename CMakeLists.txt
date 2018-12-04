@@ -25,6 +25,7 @@ include_directories(lib)
 include_directories(lib/Probability)
 include_directories(lib/Base64)
 include_directories(lib/Rapidjson)
+include_directories(lib/Nlohmann)
 
 
 add_library(mainLibrary 
@@ -38,6 +39,8 @@ add_library(mainLibrary
                     lib/HearthstoneDeck.cpp
 					lib/HSReplay.cpp
                     lib/CollectOBot.cpp
+                    lib/Nlohmann/json.hpp
+                    lib/NlohmannjsonUtils.cpp
                     )
 
 if(UNIX)

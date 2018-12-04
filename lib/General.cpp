@@ -1,12 +1,20 @@
 #include "General.hpp"
 
-std::string upper_to_standar_names(const std::string s)
+std::string upper_to_standar_names(const std::string& s)
 {
 	std::string name(s);
 	for (int c1 = 1; c1<s.size(); ++c1)
 		name[c1] = s[c1] + 32;
 	return name;
 }
+std::string upper_to_lowercase(const std::string& s)
+{
+    std::string result(s);
+    for (int c1 = 0; c1<s.size(); ++c1)
+		result[c1] = s[c1] + 32;
+	return result;
+}
+
 
 int Comb(int n, int k)
 {

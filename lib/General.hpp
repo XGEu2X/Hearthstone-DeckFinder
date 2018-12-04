@@ -26,7 +26,10 @@ bool is_in(const Element& e, const std::vector<Element> List)
 }
 
 //converts a string in upper case to a standar name, i.e. first letter in upper and the others in lower.
-std::string upper_to_standar_names(const std::string s);
+std::string upper_to_standar_names(const std::string& s);
+
+//converts a uppercase string into lowercase string
+std::string upper_to_lowercase(const std::string& s);
 
 //Combinations
 int Comb(int n, int k);
@@ -64,6 +67,25 @@ void remove_extra_cards(TuplesFile& Tuples, int maxNumCards)
 	std::sort(values.begin(), values.end());
 	if(0 < maxNumCards && maxNumCards <= Tuples.Size())
 		remove_entries_without_enough_matches(Tuples, values[Tuples.Size() - maxNumCards]);
+}
+
+//only keeps cards which belongs to Names list
+template <class CardsFile>
+bool keep_cards_by_name(CardsFile& Cards, const std::vector<std::string>& Names)
+{
+    for (int c1 = 0; c1< Cards.Size(); ++c1)
+    {
+        bool eraseFlag = true;
+        for(std::string name:Names)
+        {
+            if (name.compare(Cards[c1]["name"].GetString())==0)
+            {
+                eraseFlag=false;
+                break;
+            }
+        }
+        if(eraseFlag)Cards.Erase(Cards.Begin() + c1--);
+    }
 }
 
 //calculate winRatio parameter in database
