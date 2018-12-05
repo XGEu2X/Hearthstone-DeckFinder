@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
 		LIST_OF_VALID_SETS.push_back("LOOTAPALOOZA");
 		LIST_OF_VALID_SETS.push_back("GILNEAS");
 		LIST_OF_VALID_SETS.push_back("BOOMSDAY");
+		LIST_OF_VALID_SETS.push_back("TROLL");
 
 		//makes an object with all the cards in game
 		rapidjson::Document document = read_json("data/cards.json");
@@ -154,24 +155,31 @@ int main(int argc, char *argv[])
 
 			cards.PushBack(card, cards.GetAllocator());
 		}
-
+        
+        //only keeps the cards you have
 		if(CARDS_FILE_FLAG)
         {
-            std::cout << "Im in";
             nlohmann::json myCardsFile = nlohmann_read_json("data/HSCT.json");
             std::vector<std::string> Names;
             //lists neutral cards
             std::string neutral(upper_to_lowercase(NEUTRAL));
             for(nlohmann::json cardsType:myCardsFile[neutral]["cards"])
                 for(nlohmann::json card:cardsType)
-                    Names.push_back(card["name"]);
-            
+                {
+                    std::cout << card["name"] << " " << (int)card["normal"] << std::endl;
+                    if(card["normal"] > 0)
+                        Names.push_back(card["name"]);
+                }
             std::string cardClass(upper_to_lowercase(CARD_CLASS));
             //list class cards
             for(nlohmann::json cardsType:myCardsFile[cardClass]["cards"])
                 for(nlohmann::json card:cardsType)
-                    Names.push_back(card["name"]);
-        
+                {
+                    if(card["normal"] > 0 )
+                        Names.push_back(card["name"]);
+                }
+                
+            std::cout << "Tienes " << Names.size() << " cartas" << std::endl;
             keep_cards_by_name(cards,Names);
         }
 		
