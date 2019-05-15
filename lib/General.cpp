@@ -107,3 +107,25 @@ std::vector<int> get_tuples_indices(const std::vector<int>& List, const int L, c
 	}
 	return TuplesIndices;
 }
+
+bool keep_cards_by_name(std::vector<Card>& Cards, const std::vector<std::pair<std::string, int>>& AcquiredCards)
+{
+	for (int c1 = 0; c1<Cards.size(); ++c1)
+	{
+		bool eraseFlag = true;
+		for (std::pair<std::string, int> p : AcquiredCards)
+		{
+			if (p.first.compare(Cards[c1].get_name()) == 0)
+			{
+				if (p.second == 1)
+					Cards[c1].set_quantity(1);
+				eraseFlag = false;
+				break;
+			}
+		}
+		if (eraseFlag) {
+			Cards.erase(Cards.begin()+c1);
+			--c1;
+		}
+	}
+}

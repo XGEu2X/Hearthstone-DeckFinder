@@ -3,21 +3,15 @@
 #include "General.hpp"
 #include "Base64.hpp"
 
-//const string names
-const std::string	NEUTRAL("NEUTRAL"),
-					LEGENDARY("LEGENDARY"),
-					HERO("HERO"),
-					FREE("FREE");
-
 //number of cards by deck
 const int NUMBER_OF_CARDS=30;
 
-//returns the index of the first card which is LEGENDARY
+//returns the index of the first card which is LEGENDARY (has changed to first 1 copy card)
 template <class CardsFile>
 int get_first_legendary_index(const CardsFile& Cards){
 	int firstLegendaryIndex = Cards.Size();
 	for( int c1=0; c1<Cards.Size(); ++c1)
-		if (LEGENDARY.compare(Cards[c1]["rarity"].GetString()) == 0)
+		if (Cards[c1]["quantity"] == 1)
 		{
 			firstLegendaryIndex = c1;
 			break;

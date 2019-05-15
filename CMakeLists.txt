@@ -41,6 +41,7 @@ add_library(mainLibrary
                     lib/CollectOBot.cpp
                     lib/Nlohmann/json.hpp
                     lib/NlohmannjsonUtils.cpp
+					lib/MyCollectionParser.cpp
                     )
 
 if(UNIX)

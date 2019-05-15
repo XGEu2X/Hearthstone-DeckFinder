@@ -114,24 +114,33 @@ int main(int argc, char *argv[])
 				std::string cardClass(document[c1]["cardClass"].GetString());
 				if (cardClass == CARD_CLASS || cardClass == NEUTRAL)
 				{
-					listOfCards.push_back(Card(	document[c1]["id"].GetString(),
-												document[c1]["dbfId"].GetInt(),
-												document[c1]["name"].GetString(),
-												document[c1]["cardClass"].GetString(),
-												document[c1]["set"].GetString(),
-												document[c1]["rarity"].GetString()	));
+					Card c(document[c1]["id"].GetString(),
+						document[c1]["dbfId"].GetInt(),
+						document[c1]["name"].GetString(),
+						document[c1]["cardClass"].GetString(),
+						document[c1]["set"].GetString(),
+						document[c1]["rarity"].GetString());
+					if (strcmp(document[c1]["rarity"].GetString(), LEGENDARY.c_str()) == 0)
+						c.set_quantity(1);
+					listOfCards.push_back(c);
 				}
 			}
 		}
 
+        //only keeps the cards you have
+		if(CARDS_FILE_FLAG)
+        {
+            std::vector< std::pair <std::string, int> > AcquiredCards = MyCollectionParser::get_cards("data/MyCollection.txt");
+            keep_cards_by_name(listOfCards, AcquiredCards);
+        }
+
 		//sorts the cards, leaving legendary cards at the end
 		std::sort(listOfCards.begin(), listOfCards.end(), [](const Card& a, const Card& b)->bool {
-			if (a.get_rarity() != LEGENDARY && b.get_rarity() == LEGENDARY)return true;
-			return false;
-		});
+			return a.get_quantity() > b.get_quantity();
+			});
 
 		int firstLegendary = 0;
-		while (listOfCards[firstLegendary].get_rarity() != LEGENDARY)
+		while (listOfCards[firstLegendary].get_quantity() != 1)
 		{
 			++firstLegendary;
 			if (firstLegendary == listOfCards.size())break;
@@ -152,36 +161,10 @@ int main(int argc, char *argv[])
 			card.AddMember("playedMatches", 0, cards.GetAllocator());
 			card.AddMember("wonMatches", 0, cards.GetAllocator());
 			card.AddMember("winRatio", 0.0, cards.GetAllocator());
+			card.AddMember("quantity", c.get_quantity(), cards.GetAllocator());
 
 			cards.PushBack(card, cards.GetAllocator());
 		}
-        
-        //only keeps the cards you have
-		if(CARDS_FILE_FLAG)
-        {
-            nlohmann::json myCardsFile = nlohmann_read_json("data/HSCT.json");
-            std::vector<std::string> Names;
-            //lists neutral cards
-            std::string neutral(upper_to_lowercase(NEUTRAL));
-            for(nlohmann::json cardsType:myCardsFile[neutral]["cards"])
-                for(nlohmann::json card:cardsType)
-                {
-                    std::cout << card["name"] << " " << (int)card["normal"] << std::endl;
-                    if(card["normal"] > 0)
-                        Names.push_back(card["name"]);
-                }
-            std::string cardClass(upper_to_lowercase(CARD_CLASS));
-            //list class cards
-            for(nlohmann::json cardsType:myCardsFile[cardClass]["cards"])
-                for(nlohmann::json card:cardsType)
-                {
-                    if(card["normal"] > 0 )
-                        Names.push_back(card["name"]);
-                }
-                
-            std::cout << "Tienes " << Names.size() << " cartas" << std::endl;
-            keep_cards_by_name(cards,Names);
-        }
 		
 		//writes the file with cards of CARD CLASS
 		write_json(cards, "data/1_" + CARD_CLASS + ".json");

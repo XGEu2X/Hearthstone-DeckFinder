@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 			}
 		}
 
-	//if it is counting matches of single cards, removes cards which not have enough matches and info of this class
+	//if it is counting matches of single cards, removes cards which not have enough matches and writes info of this class
 	if (TUPLE_NUMBER == 1) 
 	{
 		remove_extra_cards(	tuplesFile, MIN_MATCH_VALID_RATIO	);

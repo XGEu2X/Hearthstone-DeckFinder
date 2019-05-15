@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 	int firstLegendary = -1;
 	for (int c1 = 0; c1<D; ++c1) 
 	{
-		if (LEGENDARY.compare(Cards[c1]["rarity"].GetString()) == 0)
+		if (Cards[c1]["quantity"] == 1)
 		{
 			if (firstLegendary == -1)firstLegendary = c1;
 			h[c1] = 1;
@@ -183,23 +183,25 @@ int main(int argc, char *argv[]) {
 
 		//How is it going?
 		if (c1 % 100 == 99) {
-			std::cout << "Generation " << c1 + 1;
+			std::cout << c1 + 1;
+			/*
 			if (iterationsWithoutImprovment < 100)
 				std::cout << ", value = " << maxValue << std::endl;
 			else
+			*/
 				std::cout << std::endl;
 		}
 
 	}
 
 	//show results
-	std::cout << "P = " << p << ", " << TUPLE_NUMBER << "-tuples. Found in generation " << c1 - iterationsWithoutImprovment + 1 << std::endl;
+	//std::cout << "P = " << p << ", " << TUPLE_NUMBER << "-tuples. Found in generation " << c1 - iterationsWithoutImprovment + 1 << std::endl;
 	//show the best deck
 	Population[NPop - 1].print(Cards,ClassInfo["heroDbfId"].GetInt());
 	//show his rate
-	std::cout << "Value: " << Population[NPop - 1].get_value() << std::endl;
+	//std::cout << "Value: " << Population[NPop - 1].get_value() << std::endl;
 	//show number of different cards in the best deck
-	std::cout << "Number of different cards: " << Population[NPop - 1].get_number_of_cards() << std::endl;
+	//std::cout << "Number of different cards: " << Population[NPop - 1].get_number_of_cards() << std::endl;
 
 	return 0;
 }

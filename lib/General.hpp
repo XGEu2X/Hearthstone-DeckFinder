@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <utility>
 
 #include "Card.hpp"
 #include "Probability.hpp"
@@ -15,6 +16,8 @@
 #endif
 
 
+inline int ctoi(char c) { return c - 48; }
+inline bool is_number(char c){ return (c <= '9' && c >= '0'); }
 
 //says if an element 'e' is in a list
 template<class Element>
@@ -48,6 +51,9 @@ void get_tuples_indices_recursively(	const std::vector<int>& List,
 										int level	);
 std::vector<int> get_tuples_indices(const std::vector<int>& List, const int L, const int k);
 
+//only keeps cards which belongs to Names list
+bool keep_cards_by_name(std::vector<Card>& Cards, const std::vector<std::pair<std::string, int>>& AcquiredCards);
+
 //remove cards without enough matches to be considered
 template <class TuplesFile>
 void remove_entries_without_enough_matches(TuplesFile& Tuples, int minMatchNumber)
@@ -67,25 +73,6 @@ void remove_extra_cards(TuplesFile& Tuples, int maxNumCards)
 	std::sort(values.begin(), values.end());
 	if(0 < maxNumCards && maxNumCards <= Tuples.Size())
 		remove_entries_without_enough_matches(Tuples, values[Tuples.Size() - maxNumCards]);
-}
-
-//only keeps cards which belongs to Names list
-template <class CardsFile>
-bool keep_cards_by_name(CardsFile& Cards, const std::vector<std::string>& Names)
-{
-    for (int c1 = 0; c1< Cards.Size(); ++c1)
-    {
-        bool eraseFlag = true;
-        for(std::string name:Names)
-        {
-            if (name.compare(Cards[c1]["name"].GetString())==0)
-            {
-                eraseFlag=false;
-                break;
-            }
-        }
-        if(eraseFlag)Cards.Erase(Cards.Begin() + c1--);
-    }
 }
 
 //calculate winRatio parameter in database

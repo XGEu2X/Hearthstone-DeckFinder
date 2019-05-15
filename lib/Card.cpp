@@ -8,7 +8,8 @@ Card::Card(	const std::string& id,
 			const std::string& rarity,
 			int playedMatches,
 			int wonMatches,
-			double winRatio	)
+			double winRatio,
+			int quantity	)
 {
 	this->id = id;
 	this->dbfId = dbfId;
@@ -19,4 +20,5 @@ Card::Card(	const std::string& id,
 	this->playedMatches = playedMatches;
 	this->wonMatches = wonMatches;
 	this->winRatio = winRatio;
+	this->quantity = quantity;
 }
