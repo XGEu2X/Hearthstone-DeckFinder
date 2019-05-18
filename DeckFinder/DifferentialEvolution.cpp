@@ -189,7 +189,7 @@ int main(int argc, char *argv[]) {
 				std::cout << ", value = " << maxValue << std::endl;
 			else
 			*/
-				std::cout << std::endl;
+			std::cout << std::endl;
 		}
 
 	}
