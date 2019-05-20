@@ -9,7 +9,7 @@ if(UNIX)
     message(STATUS ">>> Linux")
     set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 elseif(WIN32)
-    message(STATUS ">>> Not Linux")
+    message(STATUS ">>> Windows")
     set(CMAKE_CXX_FLAGS_RELEASE "-Ox")
 endif()
 
@@ -26,7 +26,6 @@ include_directories(lib/Probability)
 include_directories(lib/Base64)
 include_directories(lib/Rapidjson)
 include_directories(lib/Nlohmann)
-
 
 add_library(mainLibrary 
                     lib/RapidjsonUtils.cpp
@@ -52,10 +51,19 @@ endif()
                     
 project ("DeckFinder")
 
-# Include sub-projects.
-add_subdirectory ("DeckFinder")
-add_subdirectory ("PrepareCards")
-add_subdirectory ("MatchCollector")
-add_subdirectory ("RecursiveFiller")
-add_subdirectory ("DeckRater")
-add_subdirectory ("Playground")
+add_executable (DeckFinder "DeckFinder.cpp")
+add_executable (PrepareCards "PrepareCards.cpp")
+add_executable (MatchCollector "MatchCollector.cpp")
+add_executable (DeckRater "DeckRater.cpp")
+if(UNIX)
+    target_link_libraries(DeckFinder mainLibrary linuxLibrary)
+	target_link_libraries(PrepareCards mainLibrary linuxLibrary)
+    target_link_libraries(MatchCollector mainLibrary linuxLibrary)
+    target_link_libraries(DeckRater mainLibrary linuxLibrary)
+elseif(WIN32)
+    target_link_libraries(DeckFinder mainLibrary winLibrary)
+	target_link_libraries(PrepareCards mainLibrary winLibrary)
+    target_link_libraries(MatchCollector mainLibrary winLibrary)
+    target_link_libraries(DeckRater mainLibrary winLibrary)
+endif()
+

@@ -1,4 +1,7 @@
-#include "PrepareCards.h"
+#include "Hearthstone.hpp"
+#include "RapidjsonUtils.hpp"
+#include "NlohmannjsonUtils.hpp"
+#include "MyCollectionParser.hpp"
 
 //fills the object file in a recursive way.
 template <class GeneralFile>

@@ -9,19 +9,24 @@ In your 'build' folder you need to have the following files and folders in this 
 data/
 --->*cards.json
 --->*cards.collectible.json
+--->**MyCollection.txt
 --->HSReplay/
-------->**(Here must be files with valid statistic results structure from ___).
+------->***(Here must be files with valid statistic results structure from ___).
 --->CollectOBot/
-------->**(Here must be files with valid statistic results structure from CollectOBot).
+------->***(Here must be files with valid statistic results structure from CollectOBot).
 ```
 *From HearthstoneJSON.
 
-**In case you need it.
+**From My-Hearthstone-Collection
+
+***In case you need it.
 
 
 ### Prerequisites
 
 Before mentioned "cards.json" and "cards.collectible.json" updated from https://hearthstonejson.com/.
+
+You collection can be obtained from https://github.com/edyrol/My-Hearthstone-Collection.
 
 In the same way you need statistic result files from ___ or http://www.hearthscry.com/CollectOBot depending on what you need.
 
@@ -33,4 +38,4 @@ CMake compilation tested with GNU 7.3.0 on Linux and MSVC 15.8.
 
 ## Use
 
-All the excecutable files have their specific instructions in their folders.
+GUI in on the way so you don't have to worry about this.

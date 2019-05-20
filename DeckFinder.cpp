@@ -1,4 +1,6 @@
-#include "DifferentialEvolution.h"
+#include "HearthstoneDeck.hpp"
+#include "RapidjsonUtils.hpp"
+#include "FunctionsToRate.hpp"
 
 //sets which function will use to rate
 #define f lp_without_root  
@@ -6,7 +8,7 @@
 int main(int argc, char *argv[]) {
 
 	//default parameters
-	int NGen = 10000, NPop = 40, NRPop = 1,LimOfIterationsWithoutImprove=NGen;
+	int NGen = 10000, NPop = 40, NRPop = 1,LimOfIterationsWithoutImprove=200;
 	double p = 2, CMut = 0.2;
 
 	//reads parameters
@@ -182,7 +184,7 @@ int main(int argc, char *argv[]) {
 		}	
 
 		//How is it going?
-		if (c1 % 100 == 99) {
+		if (c1 % 10 == 9) {
 			std::cout << c1 + 1;
 			/*
 			if (iterationsWithoutImprovment < 100)
