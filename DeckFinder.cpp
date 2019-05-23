@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
 		}	
 
 		//How is it going?
-		if (c1 % 10 == 9) {
+		if (c1 % 20 == 19) {
 			std::cout << c1 + 1;
 			/*
 			if (iterationsWithoutImprovment < 100)
