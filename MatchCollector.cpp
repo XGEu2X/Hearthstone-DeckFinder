@@ -1,4 +1,5 @@
-#include "MatchCollector.h"
+#include "CollectOBot.hpp"
+#include "HSReplay.hpp"
 
 int main(int argc, char *argv[]) 
 {
