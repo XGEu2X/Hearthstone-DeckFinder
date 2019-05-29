@@ -26,6 +26,7 @@ include_directories(lib/Probability)
 include_directories(lib/Base64)
 include_directories(lib/Rapidjson)
 include_directories(lib/Nlohmann)
+include_directories(lib/Pugixml)
 
 add_library(mainLibrary 
                     lib/RapidjsonUtils.cpp
@@ -67,3 +68,4 @@ elseif(WIN32)
     target_link_libraries(DeckRater mainLibrary winLibrary)
 endif()
 
+add_subdirectory(test)

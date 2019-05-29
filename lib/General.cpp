@@ -1,5 +1,51 @@
 #include "General.hpp"
 
+bool get_cards_files(const std::string& url, const std::string& excecutionPath) {
+
+	if (!file_exists("data", excecutionPath)) {
+		if( !make_folder("data", excecutionPath) )return false;
+	}
+	
+	if (!download_file(url, excecutionPath + "data/web.html")) {
+		return false;
+	}
+
+	//gets the full url to download cards files
+	std::ifstream f;
+	std::string s1, s2, res;
+	f.open(excecutionPath + "data/web.html");
+	while (f.good()) {
+		s1 = s2;
+		getline(f, s2);
+		//cout << s2 << endl;
+		size_t i = s2.find("enums.cs");
+		if (i != std::string::npos) {
+			i = s1.find("v1/");
+			res = s1.substr(i + 3, 5);
+			break;
+		}
+	}
+	remove_file("web.html", excecutionPath + "data/");
+	std::string fullUrl = url + res + "/enUS/";
+
+	if (!download_file(fullUrl+"cards.collectible.json" , excecutionPath + "data/cards.collectible.json")) {
+		return false;
+	}
+
+	if (!download_file(fullUrl+"cards.json", excecutionPath + "data/cards.json")) {
+		return false;
+	}
+
+	return true;
+}
+
+
+bool file_exists(const std::string& filename, const std::string& path) {
+	std::vector<std::string> list;
+	read_directory(path, list);
+	return is_in(path+filename, list);
+}
+
 std::string upper_to_standar_names(const std::string& s)
 {
 	std::string name(s);

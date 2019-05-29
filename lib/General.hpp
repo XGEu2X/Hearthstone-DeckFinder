@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <sstream>
 #include <utility>
+#include <fstream>
 
 #include "Card.hpp"
 #include "Probability.hpp"
@@ -15,6 +16,8 @@
 
 #endif
 
+//downloads HearthstoneJson files
+bool get_cards_files(const std::string& url, const std::string& excecutionPath = "");
 
 inline int ctoi(char c) { return c - 48; }
 inline bool is_number(char c){ return (c <= '9' && c >= '0'); }
@@ -27,6 +30,9 @@ bool is_in(const Element& e, const std::vector<Element> List)
 		if (e == e2)return true;
 	return false;
 }
+
+//checks if a file or folder already exists
+bool file_exists(const std::string& filename, const std::string& path = "");
 
 //converts a string in upper case to a standar name, i.e. first letter in upper and the others in lower.
 std::string upper_to_standar_names(const std::string& s);

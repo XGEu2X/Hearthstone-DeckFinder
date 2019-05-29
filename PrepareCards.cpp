@@ -54,9 +54,9 @@ int main(int argc, char *argv[])
 {
 	//reads parameters
 	//checks the number of parameters
-	if (argc < 3 || argc > 4)
+	if (argc < 3 || argc > 5)
 	{
-		std::cout << "format: ./PrepareCards TUPLE_NUMBER CARD_CLASS USE_MY_CARDS (1 if yes, 0 if not)" << std::endl;
+		std::cout << "format: ./PrepareCards TUPLE_NUMBER CARD_CLASS USE_MY_CARDS (1 if yes, 0 if not) DOWNLOAD_CARDS_FILES (1 if yes, 0 if not)" << std::endl;
 		return 0;
 	}
 	//reads TUPLE_NUMBER
@@ -81,7 +81,34 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
+	//reads if you want to download cards files
+	bool DOWNLOAD_CARDS_FLAG = 0;
+	if (argc > 4)
+	{
+		std::istringstream s_DOWNLOAD_CARDS_FLAG(argv[4]);
+		if (!(s_DOWNLOAD_CARDS_FLAG >> DOWNLOAD_CARDS_FLAG))
+		{
+			std::cout << "Error with arguments" << std::endl;
+			return 0;
+		}
+	}
     
+	//checks if data/ folder exsists
+	if (!file_exists("data")) {
+		if (!make_folder("data")) {
+			std::cout << "Error with the data folder" << std::endl;
+			return -1;
+		}
+	}
+
+	//if activated the option, downloads cards files
+	if (DOWNLOAD_CARDS_FLAG) {
+		if (!get_cards_files("https://api.hearthstonejson.com/v1/")) {
+			std::cout << "ERROR getting cards files" << std::endl;
+			return -1;
+		}
+	}
+
 	//It makes the list of cards of this class
 	if (TUPLE_NUMBER == 1) 
 	{
