@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	//if it is counting matches of single cards, removes cards which not have enough matches and writes info of this class
 	if (TUPLE_NUMBER == 1) 
 	{
-		remove_extra_cards(	tuplesFile, MIN_MATCH_VALID_RATIO	);
+		remove_extra_cards(	tuplesFile, MAX_NUM_CARDS );
 		
 		rapidjson::Document GI = read_json("data/" + CARD_CLASS + "_Info.json");
 		GI["playedMatches"].SetInt(GI["playedMatches"].GetInt() + numberOfAddedMatches);
