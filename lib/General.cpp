@@ -175,3 +175,11 @@ bool keep_cards_by_name(std::vector<Card>& Cards, const std::vector<std::pair<st
 		}
 	}
 }
+
+int count_cards(const std::vector<Card>& listOfCards) {
+	int result = 0;
+	for (Card c : listOfCards) {
+		result += c.get_quantity();
+	}
+	return result;
+}

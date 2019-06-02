@@ -7,14 +7,14 @@ int main(int argc, char *argv[])
 	//default parameters
 	// minimum ratio of matches to be considered (for cards) 
 	double MIN_MATCH_VALID_RATIO = .02;
-	int MAX_NUM_CARDS = 65;
-	std::string STATS_RESOURCE("HSReplay");
+	int MAX_NUM_CARDS = 50;
+	std::string STATS_RESOURCE("stats");
 
 	//reads parameters
 	//checks the number of parameters
-	if (argc<3 || argc>5) 
+	if (argc<3 || argc>4) 
 	{
-		std::cout << "format: ./MatchCollector TUPLE_NUMBER CARD_CLASS MIN_MATCH_VALID_RATIO STATS_RESOURCE or format: ./MatchCollector 1 CARD_CLASS MAX_NUM_CARDS STATS_RESOURCE" << std::endl;
+		std::cout << "format: ./MatchCollector TUPLE_NUMBER CARD_CLASS MIN_MATCH_VALID_RATIO or format: ./MatchCollector 1 CARD_CLASS MAX_NUM_CARDS" << std::endl;
 		return 0;
 	}
 	//reads TUPLE NUMBER
@@ -43,21 +43,7 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	//reads the source of stats
-	/*
-		Available resources:
-		CollectOBot
-		HSReplay
-	*/
-	if (argc > 4) 
-	{
-		std::istringstream s_STATS_RESOURCE(argv[4]);
-		if (!(s_STATS_RESOURCE >> STATS_RESOURCE))
-		{
-			std::cout << "Error with arguments" << std::endl;
-			return 0;
-		}
-	}
+	
 
 	//makes the cards object with the CARD CLASS cards
 	rapidjson::Document Cards = read_json("data/1_" + CARD_CLASS + ".json");
@@ -78,16 +64,8 @@ int main(int argc, char *argv[])
 	for (std::string matchFileName : listOfMatches)
 		if (matchFileName != "." && matchFileName != "..") 
 		{
-			if (STATS_RESOURCE == "CollectOBot")
-			{
-				rapidjson::Document matchDay = read_json(matchFileName);
-				numberOfAddedMatches += add_counted_matches(matchDay, tuplesFile, CARD_CLASS_MIN, Cards, TUPLE_NUMBER);
-			}
-			if (STATS_RESOURCE == "HSReplay")
-			{
-				ResultsFile RF(matchFileName);
-				numberOfAddedMatches += add_counted_stats(RF,tuplesFile, CARD_CLASS, Cards, TUPLE_NUMBER);
-			}
+			ResultsFile RF(matchFileName);
+			numberOfAddedMatches += add_counted_stats(RF,tuplesFile, CARD_CLASS, Cards, TUPLE_NUMBER);
 		}
 
 	//if it is counting matches of single cards, removes cards which not have enough matches and writes info of this class

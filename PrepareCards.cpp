@@ -101,6 +101,14 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	//checks if stats/ folder exsists
+	if (!file_exists("stats", "data/")) {
+		if (!make_folder("stats", "data/")) {
+			std::cout << "Error with the data folder" << std::endl;
+			return -1;
+		}
+	}
+
 	//if activated the option, downloads cards files
 	if (DOWNLOAD_CARDS_FLAG) {
 		if (!get_cards_files("https://api.hearthstonejson.com/v1/")) {
@@ -163,6 +171,12 @@ int main(int argc, char *argv[])
             std::vector< std::pair <std::string, int> > AcquiredCards = MyCollectionParser::get_cards("data/MyCollection.txt");
             keep_cards_by_name(listOfCards, AcquiredCards);
         }
+
+		//checks if you have enough cards to work
+		if (count_cards(listOfCards) < 30) {
+			std::cout << "You don't have enough cards to work" << std::endl;
+			return 1;
+		}
 
 		//sorts the cards, leaving legendary cards at the end
 		std::sort(listOfCards.begin(), listOfCards.end(), [](const Card& a, const Card& b)->bool {

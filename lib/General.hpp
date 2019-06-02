@@ -78,7 +78,7 @@ void remove_extra_cards(TuplesFile& Tuples, int maxNumCards)
 		values.push_back(Tuples[c1]["playedMatches"].GetInt());
 	std::sort(values.begin(), values.end());
 	if(0 < maxNumCards && maxNumCards <= Tuples.Size())
-		remove_entries_without_enough_matches(Tuples, max(values[Tuples.Size() - maxNumCards],10));
+		remove_entries_without_enough_matches(Tuples, values[Tuples.Size() - maxNumCards]);
 }
 
 //calculate winRatio parameter in database
@@ -91,3 +91,5 @@ void calculate_win_ratio(TuplesFile& Tuples)
 				Tuples[c1]["wonMatches"].GetInt() / (double)(Tuples[c1]["playedMatches"].GetInt())
 			);
 }
+
+int count_cards(const std::vector<Card>& listOfCards);
