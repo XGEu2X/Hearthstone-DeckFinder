@@ -38,4 +38,4 @@ CMake compilation tested with GNU 7.3.0 on Linux and MSVC 15.8.
 
 ## Use
 
-GUI in on the way so you don't have to worry about this.
+You can get a GUI from https://github.com/XGEu2X/Hearthstone-DeckFinder-GUI
